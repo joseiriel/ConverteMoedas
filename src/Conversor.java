@@ -1,3 +1,4 @@
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import java.io.IOException;
@@ -8,22 +9,23 @@ import java.net.http.HttpResponse;
 import java.util.Currency;
 
 public class Conversor {
-    static final String urlBase = "https://v6.exchangerate-api.com/v6/";
-    String api;
-    Currency deMoeda, paraMoeda;
+    static final String apiBase = "https://v6.exchangerate-api.com/v6/";
 
-    Conversor(String chave) {
-        this.api = urlBase + chave + "/pair";
+    final String api;
+
+    public Conversor(String chave) {
+        this.api = apiBase + chave + "/";
     }
 
-    Conversor(String chave, Currency deMoeda, Currency paraMoeda) {
-        this(chave);
-        this.deMoeda = deMoeda;
-        this.paraMoeda = paraMoeda;
+    public double converter(double valor, Currency deMoeda, Currency paraMoeda) throws IOException, InterruptedException {
+        var json = solicitarApi(String.format("pair/%s/%s", deMoeda, paraMoeda));
+        double taxaDeConversao = json.getAsJsonObject().get("conversion_rate").getAsDouble();
+        return valor * taxaDeConversao;
     }
 
-    double converter(double valor) throws IOException, InterruptedException {
-        var uri = URI.create(String.format("%s/%s/%s", api, deMoeda, paraMoeda));
+    private JsonElement solicitarApi(String caminho) throws IOException, InterruptedException {
+        var separador = caminho.startsWith("/") ? "" : "/";
+        var uri = URI.create(api + separador + caminho);
 
         HttpResponse<String> resposta;
         try (HttpClient client = HttpClient.newHttpClient()) {
@@ -33,10 +35,6 @@ public class Conversor {
                     .build();
             resposta = client.send(request, HttpResponse.BodyHandlers.ofString());
         }
-
-        var json = JsonParser.parseString(resposta.body()).getAsJsonObject();
-        var taxaDeConversao = json.get("conversion_rate").getAsDouble();
-
-        return valor * taxaDeConversao;
+        return JsonParser.parseString(resposta.body());
     }
 }
