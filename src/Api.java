@@ -7,30 +7,29 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Currency;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Conversor {
+public class Api {
     static final String apiBase = "https://v6.exchangerate-api.com/v6/";
 
     final String api;
 
-    public Conversor(String chave) {
-        this.api = apiBase + chave + "/";
+    public Api(String chave) {
+        this.api = apiBase + chave;
     }
 
-    public double converter(double valor, Currency deMoeda, Currency paraMoeda) throws IOException, InterruptedException {
-        var json = solicitarApi(String.format("pair/%s/%s", deMoeda, paraMoeda));
-        double taxaDeConversao = json.getAsJsonObject().get("conversion_rate").getAsDouble();
-        return valor * taxaDeConversao;
+    public double converter(double valor, Currency moedaOriginal, Currency moedaDestino) throws IOException, InterruptedException {
+        var apiPares = String.format("%s/pair/%s/%s/", api, moedaOriginal.getCurrencyCode(), moedaDestino.getCurrencyCode());
+        var taxa = solicitarApi(apiPares).getAsJsonObject().get("conversion_rate").getAsDouble();
+        return valor * taxa;
     }
 
     private JsonElement solicitarApi(String caminho) throws IOException, InterruptedException {
-        var separador = caminho.startsWith("/") ? "" : "/";
-        var uri = URI.create(api + separador + caminho);
-
         HttpResponse<String> resposta;
-        try (HttpClient client = HttpClient.newHttpClient()) {
+        try (var client = HttpClient.newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(uri)
+                    .uri(URI.create(caminho))
                     .header("Content-Type", "application/json")
                     .build();
             resposta = client.send(request, HttpResponse.BodyHandlers.ofString());
