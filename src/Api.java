@@ -7,16 +7,24 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Currency;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Api {
     static final String apiBase = "https://v6.exchangerate-api.com/v6/";
 
     final String api;
 
-    public Api(String chave) {
-        this.api = apiBase + chave;
+    public Api(String chave) throws IOException, InterruptedException {
+        if (chave == null) {
+            System.err.println("Erro: a variável de ambiente CHAVE deve conter uma chave válida para o `ExchangeRate-API.com`.");
+            System.exit(1);
+        }
+
+        api = apiBase + chave;
+
+        var resposta = solicitarApi(api + "/latest/USD/").getAsJsonObject();
+        if (resposta.get("result").getAsString().equals("error")) {
+            System.err.printf("Erro ao acessar a API: %s\n", resposta.get("error-type").getAsString());
+        }
     }
 
     public double converter(double valor, Currency moedaOriginal, Currency moedaDestino) throws IOException, InterruptedException {
