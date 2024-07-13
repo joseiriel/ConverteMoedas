@@ -14,12 +14,12 @@ ISO 4217, assim como a biblioteca GSON da Google para a análise de respostas JS
 
 # Rodando o projeto
 O projeto inclui uma configuração de build do Intellij IDEA.
-Com a IDE aberta, ele pode ser rodado com o atalho `Shift+F10`. 
+Para utilizá-la, abra o projeto na IDE e pressione o atalho `Shift+F10`. 
 
-Uma versão pré-compilada do projeto pode ser baixada aqui: [ConverteMoedas.jar](https://github.com/joseiriel/ConverteMoedas/releases/download/v0.1.0/ConverteMoedas.jar)
+Alternativamente, uma versão pré-compilada do projeto pode ser baixada aqui: [ConverteMoedas.jar](https://github.com/joseiriel/ConverteMoedas/releases/download/v0.1.0/ConverteMoedas.jar)
 
 ## Nota sobre chave de API
 O projeto requer que uma chave válida para a API esteja presente na variável de ambiente CHAVE.
-Isso pode ser feito editando a configuração de build, ou por métodos específicos a cada sistema operacional.
+Isso pode ser feito editando a configuração de build dentro da IDE, ou por métodos específicos a cada sistema operacional.
 
 Exemplo (Linux): `env CHAVE=sua_chave_aqui java -jar ConverteMoedas.jar`
