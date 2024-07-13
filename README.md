@@ -6,3 +6,12 @@ O programa fornece uma interface textual que realiza a conversão de moedas por 
 # Tecnologias utilizadas
 O projeto utiliza as bibliotecas padrão do Java para a interface de linha de comando, acesso HTTP e validação de códigos
 ISO 4217, assim como a biblioteca GSON da Google para a análise de respostas JSON da API.
+
+# Rodando o projeto
+O projeto usa o sistema de build do Intellij no momento, requerindo que o projeto seja aberto na IDE para ser compilado.
+Uma configuração está inclusa para a geração de um arquivo JAR.
+
+# Nota sobre chave de API
+O projeto requer que uma chave válida para a API esteja presente na variável de ambiente CHAVE.
+Exemplo (Linux):
+`env CHAVE=sua_chave_aqui java -jar ConverteMoedas.jar`
