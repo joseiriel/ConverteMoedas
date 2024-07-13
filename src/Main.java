@@ -62,43 +62,36 @@ public class Main {
 
     static double pedirDouble(String mensagem) {
         System.out.printf("%s [Digite um número como 0,00]: ", mensagem);
-        double entrada;
-        while (true) {
+        var valor = OptionalDouble.empty();
+        while (valor.isEmpty()) {
+            var entrada = inputScanner.nextLine();
             try {
-                entrada = inputScanner.nextDouble();
-            } catch (InputMismatchException e) {
-                inputScanner.next();
-                System.out.print("Escolha inválida. Tente novamente. [0,00]: ");
-                continue;
+                var numero = Double.parseDouble(entrada);
+                valor = OptionalDouble.of(numero);
+            } catch (NumberFormatException e) {
+                System.out.print("Erro: o valor deve ser um número decimal. Tente novamente: ");
             }
-            break;
         }
-        return entrada;
+        return valor.orElseThrow();
     }
 
     static int pedirEscolha(String mensagem, int min, int max) {
         System.out.printf("%s [Digite um número de %d a %d]: ", mensagem, min, max);
 
-        var escolha = 0;
-        while (true) {
+        var escolha = OptionalInt.empty();
+        while (escolha.isEmpty()) {
+            var entrada = inputScanner.nextLine();
             try {
-                escolha = inputScanner.nextInt();
-                if (escolha < min || escolha > max) {
-                    throw new IllegalArgumentException();
+                var numero = Integer.parseInt(entrada);
+                if (numero < min || numero > max) {
+                    throw new ArrayIndexOutOfBoundsException();
                 }
-            } catch (InputMismatchException e) {
-                inputScanner.next(); // necessário para evitar laço infinito
-                System.out.printf("Escolha inválida. Tente novamente. [%d a %d]: ", min, max);
-                continue;
-            } catch (Exception e) {
-                // Por algum motivo, o método Scanner.next não deve ser chamado quando a escolha é negativa.
-                // Então, repetimos o bloco.
-                System.out.printf("Escolha inválida. Tente novamente. [%d a %d]: ", min, max);
-                continue;
+                escolha = OptionalInt.of(numero);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                System.out.printf("Erro: a escolha deve ser um número de %d a %d. Tente novamente: ", min, max);
             }
-            break;
         }
-        return escolha;
+        return escolha.orElseThrow();
     }
 }
 
