@@ -11,6 +11,8 @@ ISO 4217, assim como a biblioteca GSON da Google para a análise de respostas JS
 O projeto usa o sistema de build do Intellij no momento, requerindo que o projeto seja aberto na IDE para ser compilado.
 Uma configuração está inclusa para a geração de um arquivo JAR.
 
+O projeto foi desenvolvido com o OpenJDK 22 e o IntelliJ IDEA 2024.1.4.
+
 ## Nota sobre chave de API
 O projeto requer que uma chave válida para a API esteja presente na variável de ambiente CHAVE.
 
