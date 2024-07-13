@@ -23,3 +23,5 @@ O projeto requer que uma chave válida para a API esteja presente na variável d
 Isso pode ser feito editando a configuração de build dentro da IDE, ou por métodos específicos a cada sistema operacional.
 
 Exemplo (Linux): `env CHAVE=sua_chave_aqui java -jar ConverteMoedas.jar`
+
+Uma chave de API pode ser obtida gratuitamente no [site da api](https://exchangerate-api.com).
