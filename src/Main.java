@@ -61,7 +61,7 @@ public class Main {
     }
 
     static double pedirDouble(String mensagem) {
-        System.out.printf("%s [0,00]: ", mensagem);
+        System.out.printf("%s [Digite um número como 0,00]: ", mensagem);
         double entrada;
         while (true) {
             try {
@@ -77,7 +77,8 @@ public class Main {
     }
 
     static int pedirEscolha(String mensagem, int min, int max) {
-        System.out.printf("%s [%d a %d]: ", mensagem, min, max);
+        System.out.printf("%s [Digite um número de %d a %d]: ", mensagem, min, max);
+
         var escolha = 0;
         while (true) {
             try {
