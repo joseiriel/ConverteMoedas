@@ -13,6 +13,7 @@ Uma configuração está inclusa para a geração de um arquivo JAR.
 
 # Nota sobre chave de API
 O projeto requer que uma chave válida para a API esteja presente na variável de ambiente CHAVE.
+
 Exemplo (Linux):
 
 ```env CHAVE=sua_chave_aqui java -jar ConverteMoedas.jar```
