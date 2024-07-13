@@ -7,10 +7,6 @@ O programa fornece uma interface textual que realiza a conversão de moedas por 
 O projeto utiliza as bibliotecas padrão do Java para a interface de linha de comando, acesso HTTP e validação de códigos
 ISO 4217, assim como a biblioteca GSON da Google para a análise de respostas JSON da API.
 
-# Rodando o projeto
-O projeto usa o sistema de build do Intellij no momento, requerindo que o projeto seja aberto na IDE para ser compilado.
-Uma configuração está inclusa para a geração de um arquivo JAR.
-
 O projeto foi desenvolvido com o OpenJDK 22 e o IntelliJ IDEA 2024.1.4.
 
 ## Nota sobre chave de API
